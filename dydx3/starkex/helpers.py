@@ -173,6 +173,9 @@ def private_key_to_public_hex(private_key_hex):
 
 def private_key_to_public_key_pair_hex(private_key_hex):
     """Given private key as hex string, return the public x, y pair as hex."""
-    private_key_int = int(private_key_hex, 16)
+    if type(private_key_hex) == dict:
+        private_key_int = int(private_key_hex['private_key'], 16)
+    else:
+        private_key_int = int(private_key_hex, 16)
     x, y = private_key_to_ec_point_on_stark_curve(private_key_int)
     return [hex(x), hex(y)]
